@@ -40,43 +40,39 @@ import React, {useState, useEffect } from 'react'
    
 //   )
 // }
-export default function Home() {
-  const [val, setVal] = useState(1000)
-  const [tax1, setTax1] = useState(0)
-  const [tax2, setTax2] = useState(0)
-  const [msg, setMsg] = useState(<p>set a price....</p>)
 
-  const doChange= (event) => {
-    setVal(event.target.value)
+function useCounter() {
+  const [num, setNum] = useState(0)
+
+  const count = () => {
+    setNum(num +1)
   }
+  return [num, count]
+}
 
-  useEffect(() => {
-    const res = <div>
-      <p>軽減税率(8%): {tax1} 円</p>
-      <p>軽減税率(10%): {tax2} 円</p>
-    </div>
-    setMsg(res)
-  })
-
-  useEffect(() => {
-    setTax1(Math.floor(val * 1.08))
-  })
-
-  useEffect(() => {
-    setTax2(Math.floor(val * 1.1))
-  })
-
+function Alert() {
+  const [counter, plus] = useCounter()
   return(
+
+    <div >
+      <h4 className='text-xl'>count:{counter}</h4>
+     <button onClick={plus}>count</button>
+    </div>
+  )
+   
+  
+}
+
+function Home() {
+ 
+  return (
     <div>
-      <h1>React</h1>
-      <div>{msg}</div>
-      <div>
-        <label>Input:</label>
-        <input className='form-control' type='number' onChange={doChange} /> 
-      </div>
+      <Alert />
     </div>
   )
 }
+
+export default Home
 
 
 
